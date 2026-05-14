@@ -235,6 +235,26 @@
     }
     .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
     .btn-primary:active { transform: translateY(0); }
+    .btn-wa {
+      width: 100%;
+      padding: 13px;
+      background: #25D366;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
 
     /* AUDIO HINT */
     .audio-hint {
@@ -384,14 +404,19 @@
     </select>
 
     <button class="btn-primary" onclick="submit()">✦ Meld je aan voor ForwardJuntos</button>
+    <a id="wa-btn" href="https://wa.me/31638898163?text=Hoi%20Dominique%2C%20ik%20wil%20meedoen%20met%20ForwardJuntos.%20Mijn%20antwoord%3A%20" class="btn-wa" target="_blank">
+      💬 Direct inspreken via WhatsApp
+    </a>
   </div>
 
   <div class="success" id="success">
     <div style="font-size:36px;margin-bottom:0.5rem">🌿</div>
     <h3>Dank je — dit telt.</h3>
-    <p>Ik neem snel contact op via WhatsApp of e-mail.<br>
-    Samen bouwen we iets wat er nog niet is.<br><br>
-    <a href="https://forwardjuntos.nl" target="_blank">→ forwardjuntos.nl</a></p>
+    <p>Klik hieronder om je antwoord direct naar Dominique te sturen via WhatsApp — op het moment dat het jou uitkomt.<br><br></p>
+    <a id="wa-success-btn" href="https://wa.me/31638898163" class="btn-wa" target="_blank" style="max-width:320px;margin:0 auto 1rem;">
+      💬 Stuur via WhatsApp
+    </a>
+    <p style="margin-top:0.8rem"><a href="https://forwardjuntos.nl" target="_blank">→ forwardjuntos.nl</a></p>
   </div>
 </div>
 
@@ -425,10 +450,20 @@
   function submit() {
     const naam = document.getElementById('naam').value.trim();
     const contact = document.getElementById('contact').value.trim();
+    const antwoord = document.getElementById('antwoord').value.trim();
+    const rol = document.getElementById('rol').value;
     if (!naam || !contact) {
       alert('Vul je naam en contactgegeven in — dan neem ik contact op.');
       return;
     }
+    // Update WhatsApp link met ingevulde gegevens
+    const vraagTekst = sel > 0
+      ? document.querySelectorAll('.vraag')[sel-1].querySelector('.vraag-text').textContent.replace(/"/g,'')
+      : 'ForwardJuntos community';
+    const msg = encodeURIComponent(
+      `Hoi Dominique, ik wil meedoen met ForwardJuntos.\n\nNaam: ${naam}\nContact: ${contact}\nVoorkeur: ${rol}\n\nMijn antwoord op: ${vraagTekst}\n${antwoord || '(volgt nog)'}`
+    );
+    document.getElementById('wa-btn').href = `https://wa.me/31638898163?text=${msg}`;
     document.getElementById('form-card').style.display = 'none';
     document.getElementById('success').style.display = 'block';
     document.getElementById('success').scrollIntoView({ behavior: 'smooth' });
