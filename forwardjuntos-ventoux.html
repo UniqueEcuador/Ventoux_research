@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForwardJuntos · Jouw MS-ervaring telt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --border: #21262d;
+      --accent: #3fb68b;
+      --accent2: #5dbfa0;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --gold: #d4a843;
+      --radius: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 4rem;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 3.5rem 1.5rem 2.5rem;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(63,182,139,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 14px;
+      border: 1px solid var(--accent);
+      border-radius: 99px;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(26px, 6vw, 42px);
+      font-weight: 500;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 1.8rem;
+      line-height: 1.7;
+    }
+    .mountain {
+      font-size: 48px;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    /* DOMINIQUE INTRO */
+    .intro-card {
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #2a7a5e);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .intro-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .intro-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .intro-card a { color: var(--accent); text-decoration: none; }
+
+    /* SECTION */
+    .section { max-width: 640px; margin: 0 auto 2rem; padding: 0 1rem; }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+      color: var(--text);
+    }
+
+    /* VRAGEN */
+    .vraag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1.1rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .vraag:hover { border-color: var(--accent2); transform: translateY(-1px); }
+    .vraag.selected { border-color: var(--accent); background: rgba(63,182,139,0.06); }
+    .vraag-num {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .vraag-tag {
+      display: inline-block;
+      font-size: 10.5px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: rgba(63,182,139,0.12);
+      color: var(--accent2);
+      margin-left: 6px;
+    }
+    .vraag-text {
+      font-size: 15px;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .vraag-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .check {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+    .vraag.selected .check {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+    }
+
+    /* AANMELD FORM */
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .form-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+    .form-card p { font-size: 13px; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.6; }
+
+    input, textarea, select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 13px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      margin-bottom: 10px;
+      transition: border-color 0.15s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    textarea { resize: vertical; line-height: 1.6; }
+    select option { background: #1a1a2e; }
+
+    .row { display: flex; gap: 10px; }
+    .row input { flex: 1; }
+
+    label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 13px;
+      background: var(--accent);
+      color: #0d1117;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      margin-top: 4px;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* AUDIO HINT */
+    .audio-hint {
+      background: rgba(212,168,67,0.08);
+      border: 1px solid rgba(212,168,67,0.25);
+      border-radius: 8px;
+      padding: 10px 13px;
+      font-size: 12.5px;
+      color: var(--gold);
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    /* SUCCESS */
+    .success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(63,182,139,0.08);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+    }
+    .success h3 { font-family: 'Lora', serif; font-size: 20px; margin-bottom: 0.5rem; color: var(--accent); }
+    .success p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 640px;
+      margin: 2rem auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="mountain">⛰️</span>
+  <div class="badge">KlimmentegenMS · Mont Ventoux · 25 mei 2026</div>
+  <h1>Jouw ervaring met MS<br><em>telt écht</em></h1>
+  <p>Help mee de eerste community-app te bouwen die MS begrijpelijk maakt — vanuit de mensen die het leven.</p>
+</div>
+
+<!-- INTRO -->
+<div class="section">
+  <div class="intro-card">
+    <div class="avatar">🧠</div>
+    <div>
+      <h3>Dominique Hermans · ForwardJuntos</h3>
+      <p>Ik heb MS en klim vandaag mee op de Ventoux. Ik bouw een app die mensen vroeg na diagnose helpt hun zenuwstelsel te begrijpen — in taal die voelt als een gesprek, niet als een medisch dossier.<br><br>
+      Jouw inzicht helpt me die app te bouwen. <a href="https://forwardjuntos.nl" target="_blank">forwardjuntos.nl</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- VRAGEN -->
+<div class="section">
+  <div class="section-label">Research · 5 vragen</div>
+  <div class="section-title">Kies de vraag die jou het meest raakt</div>
+
+  <div class="vraag" onclick="toggle(this, 1)">
+    <div class="vraag-num">Vraag 1 <span class="vraag-tag">Recent gediagnosticeerd</span></div>
+    <div class="vraag-text">"Wat miste je het meest in de eerste maanden na je diagnose?"</div>
+    <div class="vraag-sub">→ Kernbehoefte voor app onboarding</div>
+    <div class="check"></div>
+  </div>
+
+  <div class="vraag" onclick="toggle(this, 2)">
+    <div class="vraag-num">Vraag 2 <span class="vraag-tag">Alle MS-patiënten</span></div>
+    <div class="vraag-text">"Heb je ooit een app gebruikt rondom MS? Wat werkte niet?"</div>
+    <div class="vraag-sub">→ Concurrentie-lacunes valideren uit eerste hand</div>
+    <div class="check"></div>
+  </div>
+
+  <div class="vraag" onclick="toggle(this, 3)">
+    <div class="vraag-num">Vraag 3 <span class="vraag-tag">Alle MS-patiënten</span></div>
+    <div class="vraag-text">"Hoe plan jij je energie op een slechte MS-dag?"</div>
+    <div class="vraag-sub">→ Energiecoach feature valideren met echte aanpak</div>
+    <div class="check"></div>
+  </div>
+
+  <div class="vraag" onclick="toggle(this, 4)">
+    <div class="vraag-num">Vraag 4 <span class="vraag-tag">Patiënten + familie</span></div>
+    <div class="vraag-text">"Hoe leg jij aan iemand anders uit wat MS met jou doet?"</div>
+    <div class="vraag-sub">→ Visuele uitlegbehoefte en taal valideren</div>
+    <div class="check"></div>
+  </div>
+
+  <div class="vraag" onclick="toggle(this, 5)">
+    <div class="vraag-num">Vraag 5 <span class="vraag-tag">Alle MS-patiënten</span></div>
+    <div class="vraag-text">"Wat zou een app moeten doen om je écht te helpen — niet irriteren?"</div>
+    <div class="vraag-sub">→ UX-principes voor MS-vermoeidheid vaststellen</div>
+    <div class="check"></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FORM -->
+<div class="section">
+  <div class="section-label">Meedoen</div>
+  <div class="section-title">Sluit je aan bij de community</div>
+
+  <div class="form-card" id="form-card">
+    <h3>Jouw inzicht · Jouw impact</h3>
+    <p>Meld je aan en ik neem contact op voor een kort gesprek (15 min, op jouw moment). Met toestemming neem ik het op — zodat jouw woorden letterlijk de app vormgeven.</p>
+
+    <div class="audio-hint">
+      🎙️ Liever direct inspreken? Na aanmelding stuur ik je een persoonlijke WhatsApp met een audio-link. Jij spreekt, ik luister.
+    </div>
+
+    <div class="row">
+      <div style="flex:1">
+        <label>Voornaam</label>
+        <input type="text" id="naam" placeholder="Jouw naam" />
+      </div>
+      <div style="flex:1">
+        <label>Diagnose jaar (optioneel)</label>
+        <input type="text" id="jaar" placeholder="bv. 2022" />
+      </div>
+    </div>
+
+    <label>WhatsApp of e-mail</label>
+    <input type="text" id="contact" placeholder="+31 6... of naam@email.nl" />
+
+    <label>Jouw antwoord op de vraag die jou raakte (optioneel — mag ook later)</label>
+    <textarea id="antwoord" rows="3" placeholder="Schrijf het hier, of bewaar het voor ons gesprek..."></textarea>
+
+    <label>Hoe wil je meedoen?</label>
+    <select id="rol">
+      <option value="">Kies...</option>
+      <option value="gesprek">Kort gesprek (15 min)</option>
+      <option value="audio">Inspreken via WhatsApp</option>
+      <option value="volgen">Alleen volgen — houd me op de hoogte</option>
+      <option value="beta">Beta-tester worden van de app</option>
+    </select>
+
+    <button class="btn-primary" onclick="submit()">✦ Meld je aan voor ForwardJuntos</button>
+  </div>
+
+  <div class="success" id="success">
+    <div style="font-size:36px;margin-bottom:0.5rem">🌿</div>
+    <h3>Dank je — dit telt.</h3>
+    <p>Ik neem snel contact op via WhatsApp of e-mail.<br>
+    Samen bouwen we iets wat er nog niet is.<br><br>
+    <a href="https://forwardjuntos.nl" target="_blank">→ forwardjuntos.nl</a></p>
+  </div>
+</div>
+
+<footer>
+  <strong>ForwardJuntos</strong> · Dominique Hermans<br>
+  <a href="https://forwardjuntos.nl" target="_blank">forwardjuntos.nl</a> ·
+  <a href="mailto:hello@forwardjuntos.nl">hello@forwardjuntos.nl</a><br><br>
+  Deze pagina verzamelt geen data automatisch — alleen wat jij zelf invult en deelt.
+</footer>
+
+<script>
+  let sel = 0;
+
+  function toggle(el, num) {
+    document.querySelectorAll('.vraag').forEach(v => {
+      v.classList.remove('selected');
+      v.querySelector('.check').textContent = '';
+    });
+    if (sel !== num) {
+      el.classList.add('selected');
+      el.querySelector('.check').textContent = '✓';
+      sel = num;
+      document.getElementById('antwoord').placeholder =
+        el.querySelector('.vraag-text').textContent.replace(/"/g,'') + '\n\nJouw antwoord...';
+      document.getElementById('form-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      sel = 0;
+    }
+  }
+
+  function submit() {
+    const naam = document.getElementById('naam').value.trim();
+    const contact = document.getElementById('contact').value.trim();
+    if (!naam || !contact) {
+      alert('Vul je naam en contactgegeven in — dan neem ik contact op.');
+      return;
+    }
+    document.getElementById('form-card').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+    document.getElementById('success').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
