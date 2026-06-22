@@ -1,473 +1,328 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ForwardJuntos · Jouw MS-ervaring telt</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0d1117;
-      --card: #161b22;
-      --border: #21262d;
-      --accent: #3fb68b;
-      --accent2: #5dbfa0;
-      --text: #e6edf3;
-      --muted: #8b949e;
-      --gold: #d4a843;
-      --radius: 14px;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ForwardJuntos · Jouw MS-ervaring telt</title>
+<style>
+  :root{
+    --ink:#20283A; --ink-soft:#565E72;
+    --paper:#F4F6F7; --card:#FFFFFF;
+    --dawn:#E8907B; --dawn-deep:#CD6A53;
+    --living:#5E9C86; --living-deep:#467663;
+    --summit:#F3D7A6;
+    --line:#E4E6E5; --line-soft:#EFF1F0;
+    --shadow:0 1px 2px rgba(32,40,58,.05), 0 10px 30px rgba(32,40,58,.06);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:18px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px; margin:0 auto; padding:0 22px}
+  .eyebrow{
+    font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    font-weight:700; color:var(--living-deep);
+  }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 0 0 4rem;
-    }
+  /* hero */
+  .hero{
+    position:relative; padding:46px 0 0;
+    background:linear-gradient(168deg,#FBE7DC 0%,#FBEFE6 38%,var(--paper) 78%);
+    overflow:hidden;
+  }
+  .hero h1{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(30px,7.4vw,44px); line-height:1.1;
+    letter-spacing:-.01em; margin:14px 0 0;
+  }
+  .hero h1 em{font-style:italic; color:var(--dawn-deep)}
+  .hero .lede{font-size:19px; color:var(--ink-soft); margin:16px 0 30px; max-width:33ch}
+  .ridge{display:block; width:100%; height:54px}
+  .ridge path{fill:none; stroke:var(--ink); stroke-width:1.4; opacity:.32; stroke-linejoin:round}
 
-    /* HERO */
-    .hero {
-      position: relative;
-      text-align: center;
-      padding: 3.5rem 1.5rem 2.5rem;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -60px; left: 50%;
-      transform: translateX(-50%);
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(63,182,139,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .badge {
-      display: inline-block;
-      padding: 5px 14px;
-      border: 1px solid var(--accent);
-      border-radius: 99px;
-      font-size: 12px;
-      color: var(--accent);
-      letter-spacing: 0.5px;
-      margin-bottom: 1.2rem;
-    }
-    .hero h1 {
-      font-family: 'Lora', serif;
-      font-size: clamp(26px, 6vw, 42px);
-      font-weight: 500;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-      color: var(--text);
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero p {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 520px;
-      margin: 0 auto 1.8rem;
-      line-height: 1.7;
-    }
-    .mountain {
-      font-size: 48px;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
+  /* intro */
+  .intro{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:18px; padding:22px 22px; box-shadow:var(--shadow);
+    margin:-6px 0 0; position:relative; z-index:2;
+  }
+  .intro .who{display:flex; align-items:center; gap:11px; margin-bottom:10px}
+  .intro .dot{
+    width:38px;height:38px;border-radius:50%;flex:0 0 auto;
+    background:radial-gradient(circle at 32% 30%,var(--summit),var(--dawn) 78%);
+  }
+  .intro .who b{font-family:var(--serif); font-size:19px; font-weight:600}
+  .intro p{margin:0; color:var(--ink-soft); font-size:16.5px}
+  .intro a{color:var(--living-deep); text-decoration:none; font-weight:600; border-bottom:1.5px solid var(--living)}
 
-    /* DOMINIQUE INTRO */
-    .intro-card {
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      text-align: left;
-    }
-    .avatar {
-      width: 52px; height: 52px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), #2a7a5e);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-    .intro-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-    .intro-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .intro-card a { color: var(--accent); text-decoration: none; }
+  /* promise — the heart */
+  .promise{
+    margin:24px 0; padding:22px 22px 20px;
+    background:linear-gradient(180deg,#FFF 0%,#FFF8F4 100%);
+    border:1px solid #F2D8CD; border-left:4px solid var(--dawn);
+    border-radius:16px;
+  }
+  .promise h2{
+    font-family:var(--serif); font-weight:600; font-size:21px; margin:0 0 8px;
+  }
+  .promise p{margin:0; font-size:16.5px; color:#5A4A45}
 
-    /* SECTION */
-    .section { max-width: 640px; margin: 0 auto 2rem; padding: 0 1rem; }
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-    }
-    .section-title {
-      font-family: 'Lora', serif;
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 1.2rem;
-      color: var(--text);
-    }
+  section{margin:36px 0}
+  .label{
+    font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+    font-weight:700; color:var(--ink-soft); margin:0 0 14px;
+  }
+  h2.heading{font-family:var(--serif); font-weight:600; font-size:24px; margin:0 0 4px}
 
-    /* VRAGEN */
-    .vraag {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.25rem 1.1rem;
-      margin-bottom: 0.75rem;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s;
-      position: relative;
-    }
-    .vraag:hover { border-color: var(--accent2); transform: translateY(-1px); }
-    .vraag.selected { border-color: var(--accent); background: rgba(63,182,139,0.06); }
-    .vraag-num {
-      font-size: 11px;
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-    .vraag-tag {
-      display: inline-block;
-      font-size: 10.5px;
-      padding: 2px 8px;
-      border-radius: 99px;
-      background: rgba(63,182,139,0.12);
-      color: var(--accent2);
-      margin-left: 6px;
-    }
-    .vraag-text {
-      font-size: 15px;
-      font-family: 'Lora', serif;
-      font-style: italic;
-      color: var(--text);
-      line-height: 1.5;
-      margin-bottom: 6px;
-    }
-    .vraag-sub {
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .check {
-      position: absolute;
-      top: 1rem; right: 1rem;
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px;
-      transition: all 0.15s;
-    }
-    .vraag.selected .check {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #000;
-    }
+  /* question cards */
+  .cards{display:grid; gap:11px; margin-top:16px}
+  .qcard{
+    text-align:left; width:100%; cursor:pointer;
+    background:var(--card); border:1.5px solid var(--line);
+    border-radius:14px; padding:15px 16px; font-family:var(--sans);
+    color:var(--ink); transition:border-color .15s, box-shadow .15s, background .15s;
+  }
+  .qcard:hover{border-color:#D6C2BB}
+  .qcard .tag{
+    font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+    font-weight:700; color:var(--living-deep);
+  }
+  .qcard .q{display:block; margin-top:5px; font-size:17px; line-height:1.4}
+  .qcard[aria-pressed="true"]{
+    border-color:var(--dawn); background:#FFF7F3;
+    box-shadow:0 0 0 3px rgba(232,144,123,.16);
+  }
+  .qcard[aria-pressed="true"] .tag{color:var(--dawn-deep)}
 
-    /* AANMELD FORM */
-    .form-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-    }
-    .form-card h3 {
-      font-family: 'Lora', serif;
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 0.4rem;
-    }
-    .form-card p { font-size: 13px; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.6; }
+  /* form */
+  .form{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:18px; padding:22px; box-shadow:var(--shadow); margin-top:18px;
+  }
+  .field{margin-bottom:17px}
+  .field:last-of-type{margin-bottom:0}
+  .field label{display:block; font-weight:700; font-size:15px; margin-bottom:7px}
+  .field .hint{font-weight:400; color:var(--ink-soft); font-size:13.5px}
+  textarea,input,select{
+    width:100%; font-family:var(--sans); font-size:17px; color:var(--ink);
+    background:#FBFCFC; border:1.5px solid var(--line); border-radius:11px;
+    padding:13px 14px; -webkit-appearance:none; appearance:none;
+  }
+  textarea{min-height:120px; resize:vertical; line-height:1.5}
+  select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23565E72' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; padding-right:42px}
+  textarea:focus,input:focus,select:focus{outline:none; border-color:var(--dawn); box-shadow:0 0 0 3px rgba(232,144,123,.16)}
+  .selected-q{
+    font-size:14.5px; color:var(--ink-soft); margin:0 0 17px;
+    padding:11px 14px; background:#F3F8F6; border-radius:10px; border:1px dashed #CFE2DA;
+  }
+  .selected-q b{color:var(--living-deep)}
 
-    input, textarea, select {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 13px;
-      font-size: 14px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      margin-bottom: 10px;
-      transition: border-color 0.15s;
-    }
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-    textarea { resize: vertical; line-height: 1.6; }
-    select option { background: #1a1a2e; }
+  .actions{display:grid; gap:10px; margin-top:4px}
+  @media(min-width:430px){.actions{grid-template-columns:1fr 1fr}}
+  .btn{
+    font-family:var(--sans); font-size:16.5px; font-weight:700; cursor:pointer;
+    border-radius:12px; padding:15px 16px; border:1.5px solid transparent;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    transition:transform .06s, background .15s, border-color .15s;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-wa{background:var(--living); color:#fff}
+  .btn-wa:hover{background:var(--living-deep)}
+  .btn-mail{background:#fff; color:var(--ink); border-color:var(--line)}
+  .btn-mail:hover{border-color:#C9CDCB}
+  .after-send{
+    margin-top:16px; padding:15px 16px; border-radius:12px;
+    background:#F1F8F4; border:1px solid #CDE6D9; color:var(--living-deep);
+    font-size:15.5px; display:none;
+  }
+  .after-send.show{display:block}
+  .send-help{font-size:14px; color:var(--ink-soft); margin:13px 0 0; text-align:center}
 
-    .row { display: flex; gap: 10px; }
-    .row input { flex: 1; }
+  /* footer */
+  footer{margin:44px 0 40px; padding-top:22px; border-top:1px solid var(--line)}
+  .privacy{font-size:14px; color:var(--ink-soft); background:#F6F8F8; border-radius:12px; padding:14px 16px}
+  .privacy b{color:var(--ink)}
+  .sig{margin-top:18px; font-size:14.5px; color:var(--ink-soft); line-height:1.5}
+  .sig b{color:var(--ink); font-family:var(--serif); font-weight:600; font-size:16px}
+  .sig a{color:var(--living-deep); text-decoration:none; border-bottom:1px solid var(--line-soft)}
 
-    label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; }
-
-    .btn-primary {
-      width: 100%;
-      padding: 13px;
-      background: var(--accent);
-      color: #0d1117;
-      font-size: 15px;
-      font-weight: 600;
-      font-family: 'DM Sans', sans-serif;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-      margin-top: 4px;
-    }
-    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-    .btn-primary:active { transform: translateY(0); }
-    .btn-wa {
-      width: 100%;
-      padding: 13px;
-      background: #25D366;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      font-family: 'DM Sans', sans-serif;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-    .btn-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
-
-    /* AUDIO HINT */
-    .audio-hint {
-      background: rgba(212,168,67,0.08);
-      border: 1px solid rgba(212,168,67,0.25);
-      border-radius: 8px;
-      padding: 10px 13px;
-      font-size: 12.5px;
-      color: var(--gold);
-      margin-bottom: 12px;
-      line-height: 1.6;
-    }
-
-    /* SUCCESS */
-    .success {
-      display: none;
-      text-align: center;
-      padding: 2rem;
-      background: rgba(63,182,139,0.08);
-      border: 1px solid var(--accent);
-      border-radius: var(--radius);
-    }
-    .success h3 { font-family: 'Lora', serif; font-size: 20px; margin-bottom: 0.5rem; color: var(--accent); }
-    .success p { font-size: 14px; color: var(--muted); line-height: 1.7; }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem 0;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
-
-    /* DIVIDER */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      max-width: 640px;
-      margin: 2rem auto;
-    }
-  </style>
+  :focus-visible{outline:3px solid var(--dawn); outline-offset:2px; border-radius:6px}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <span class="mountain">⛰️</span>
-  <div class="badge">KlimmentegenMS · Mont Ventoux · 25 mei 2026</div>
-  <h1>Jouw ervaring met MS<br><em>telt écht</em></h1>
-  <p>Help mee de eerste community-app te bouwen die MS begrijpelijk maakt — vanuit de mensen die het leven.</p>
-</div>
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">⛰ KlimmenTegenMS · Mont Ventoux</span>
+    <h1>Jouw ervaring telt — <em>en ik neem zelf contact op</em></h1>
+    <p class="lede">Help me de eerste app bouwen die MS begrijpelijk maakt, vanuit de mensen die het leven. Maar eerst leer ik jou kennen.</p>
+  </div>
+  <svg class="ridge" viewBox="0 0 640 54" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 50 L96 22 L150 38 L232 8 L300 34 L372 18 L452 44 L520 26 L592 40 L640 30"/>
+  </svg>
+</header>
 
-<!-- INTRO -->
-<div class="section">
-  <div class="intro-card">
-    <div class="avatar">🧠</div>
-    <div>
-      <h3>Dominique Hermans · ForwardJuntos</h3>
-      <p>Ik heb MS en klim vandaag mee op de Ventoux. Ik bouw een app die mensen vroeg na diagnose helpt hun zenuwstelsel te begrijpen — in taal die voelt als een gesprek, niet als een medisch dossier.<br><br>
-      Jouw inzicht helpt me die app te bouwen. <a href="https://forwardjuntos.nl" target="_blank">forwardjuntos.nl</a></p>
+<main class="wrap">
+
+  <div class="intro">
+    <div class="who"><span class="dot" aria-hidden="true"></span><b>Dominique · ForwardJuntos</b></div>
+    <p>Ik heb MS, en ik bouw een app die mensen vroeg na hun diagnose helpt hun zenuwstelsel te begrijpen — in taal die voelt als een gesprek, niet als een medisch dossier. Wat jij deelt, vormt die app letterlijk. Meer op <a href="https://forwardjuntos.nl">forwardjuntos.nl</a>.</p>
+  </div>
+
+  <div class="promise">
+    <h2>Eerst de mens, dan de app</h2>
+    <p>Wat je hier deelt, leidt altijd eerst tot een persoonlijk gesprekje — als jij dat wilt. Je wordt gezien, niet verzameld. We kijken samen naar wat wél werkt. Want voelt het niet persoonlijk, dan wil je mijn app straks ook niet gebruiken. En dat snap ik volkomen.</p>
+  </div>
+
+  <section>
+    <p class="label">Stap 1</p>
+    <h2 class="heading">Kies de vraag die jou het meest raakt</h2>
+    <div class="cards" id="cards">
+      <button class="qcard" type="button" aria-pressed="false" data-q="Wat miste je het meest in de eerste maanden na je diagnose?">
+        <span class="tag">Recent gediagnosticeerd</span>
+        <span class="q">Wat miste je het meest in de eerste maanden na je diagnose?</span>
+      </button>
+      <button class="qcard" type="button" aria-pressed="false" data-q="Heb je ooit een app rond MS gebruikt? Wat werkte niet?">
+        <span class="tag">Iedereen met MS</span>
+        <span class="q">Heb je ooit een app rond MS gebruikt? Wat werkte niet?</span>
+      </button>
+      <button class="qcard" type="button" aria-pressed="false" data-q="Hoe plan jij je energie op een slechte MS-dag?">
+        <span class="tag">Iedereen met MS</span>
+        <span class="q">Hoe plan jij je energie op een slechte MS-dag?</span>
+      </button>
+      <button class="qcard" type="button" aria-pressed="false" data-q="Hoe leg jij aan iemand anders uit wat MS met jou doet?">
+        <span class="tag">Patiënt + familie</span>
+        <span class="q">Hoe leg jij aan iemand anders uit wat MS met jou doet?</span>
+      </button>
+      <button class="qcard" type="button" aria-pressed="false" data-q="Wat zou een app moeten doen om je écht te helpen — niet irriteren?">
+        <span class="tag">Iedereen met MS</span>
+        <span class="q">Wat zou een app moeten doen om je écht te helpen — niet irriteren?</span>
+      </button>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- VRAGEN -->
-<div class="section">
-  <div class="section-label">Research · 5 vragen</div>
-  <div class="section-title">Kies de vraag die jou het meest raakt</div>
+  <section>
+    <p class="label">Stap 2</p>
+    <h2 class="heading">Vertel het in je eigen woorden</h2>
+    <div class="form">
+      <p class="selected-q" id="selectedQ">Nog geen vraag gekozen — dat mag. <b>Schrijf gerust vrijuit.</b></p>
 
-  <div class="vraag" onclick="toggle(this, 1)">
-    <div class="vraag-num">Vraag 1 <span class="vraag-tag">Recent gediagnosticeerd</span></div>
-    <div class="vraag-text">"Wat miste je het meest in de eerste maanden na je diagnose?"</div>
-    <div class="vraag-sub">→ Kernbehoefte voor app onboarding</div>
-    <div class="check"></div>
-  </div>
-
-  <div class="vraag" onclick="toggle(this, 2)">
-    <div class="vraag-num">Vraag 2 <span class="vraag-tag">Alle MS-patiënten</span></div>
-    <div class="vraag-text">"Heb je ooit een app gebruikt rondom MS? Wat werkte niet?"</div>
-    <div class="vraag-sub">→ Concurrentie-lacunes valideren uit eerste hand</div>
-    <div class="check"></div>
-  </div>
-
-  <div class="vraag" onclick="toggle(this, 3)">
-    <div class="vraag-num">Vraag 3 <span class="vraag-tag">Alle MS-patiënten</span></div>
-    <div class="vraag-text">"Hoe plan jij je energie op een slechte MS-dag?"</div>
-    <div class="vraag-sub">→ Energiecoach feature valideren met echte aanpak</div>
-    <div class="check"></div>
-  </div>
-
-  <div class="vraag" onclick="toggle(this, 4)">
-    <div class="vraag-num">Vraag 4 <span class="vraag-tag">Patiënten + familie</span></div>
-    <div class="vraag-text">"Hoe leg jij aan iemand anders uit wat MS met jou doet?"</div>
-    <div class="vraag-sub">→ Visuele uitlegbehoefte en taal valideren</div>
-    <div class="check"></div>
-  </div>
-
-  <div class="vraag" onclick="toggle(this, 5)">
-    <div class="vraag-num">Vraag 5 <span class="vraag-tag">Alle MS-patiënten</span></div>
-    <div class="vraag-text">"Wat zou een app moeten doen om je écht te helpen — niet irriteren?"</div>
-    <div class="vraag-sub">→ UX-principes voor MS-vermoeidheid vaststellen</div>
-    <div class="check"></div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- FORM -->
-<div class="section">
-  <div class="section-label">Meedoen</div>
-  <div class="section-title">Sluit je aan bij de community</div>
-
-  <div class="form-card" id="form-card">
-    <h3>Jouw inzicht · Jouw impact</h3>
-    <p>Meld je aan en ik neem contact op voor een kort gesprek (15 min, op jouw moment). Met toestemming neem ik het op — zodat jouw woorden letterlijk de app vormgeven.</p>
-
-    <div class="audio-hint">
-      🎙️ Liever direct inspreken? Na aanmelding stuur ik je een persoonlijke WhatsApp met een audio-link. Jij spreekt, ik luister.
-    </div>
-
-    <div class="row">
-      <div style="flex:1">
-        <label>Voornaam</label>
-        <input type="text" id="naam" placeholder="Jouw naam" />
+      <div class="field">
+        <label for="answer">Jouw antwoord</label>
+        <textarea id="answer" placeholder="Er is geen goed of fout. Alles wat je deelt, helpt."></textarea>
       </div>
-      <div style="flex:1">
-        <label>Diagnose jaar (optioneel)</label>
-        <input type="text" id="jaar" placeholder="bv. 2022" />
+
+      <div class="field">
+        <label for="firstname">Voornaam</label>
+        <input id="firstname" type="text" autocomplete="given-name" placeholder="Zodat ik je persoonlijk kan aanspreken">
       </div>
+
+      <div class="field">
+        <label for="year">Diagnosejaar <span class="hint">— mag je overslaan</span></label>
+        <input id="year" type="text" inputmode="numeric" placeholder="bv. 2023">
+      </div>
+
+      <div class="field">
+        <label for="reach">Hoe bereik ik je het fijnst? <span class="hint">— mag je overslaan</span></label>
+        <input id="reach" type="text" placeholder="WhatsApp, e-mail, een tijdstip…">
+      </div>
+
+      <div class="field">
+        <label for="take">Zo wil ik graag meedoen</label>
+        <select id="take">
+          <option>Een kort gesprek (15 min, op mijn moment)</option>
+          <option>Inspreken via een spraakbericht</option>
+          <option>Voorlopig alleen volgen</option>
+          <option>Beta-tester worden van de app</option>
+        </select>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-wa" type="button" id="sendWa">Stuur via WhatsApp</button>
+        <button class="btn btn-mail" type="button" id="sendMail">Stuur via e-mail</button>
+      </div>
+      <p class="send-help">Eén tik en je bericht staat klaar — jij drukt zelf op verzenden. Daarna neem ik persoonlijk contact op, op jouw tempo.</p>
+      <div class="after-send" id="afterSend">Bedankt — dit telt echt. 🌿 Je bericht staat klaar; druk in WhatsApp of je mail op verzenden. Ik lees je woorden zelf en kom bij je terug.</div>
     </div>
+  </section>
 
-    <label>WhatsApp of e-mail</label>
-    <input type="text" id="contact" placeholder="+31 6... of naam@email.nl" />
+  <footer>
+    <p class="privacy"><b>Deze pagina bewaart niets.</b> Er draait geen database en geen server-opslag — alleen het bericht dat jij zelf verstuurt, komt bij mij aan. Je gegevens blijven van jou.</p>
+    <p class="sig"><b>ForwardJuntos</b> · Dominique Hermans<br>
+    <a href="https://forwardjuntos.nl">forwardjuntos.nl</a> · <a href="mailto:hello@forwardjuntos.nl">hello@forwardjuntos.nl</a></p>
+  </footer>
 
-    <label>Jouw antwoord op de vraag die jou raakte (optioneel — mag ook later)</label>
-    <textarea id="antwoord" rows="3" placeholder="Schrijf het hier, of bewaar het voor ons gesprek..."></textarea>
-
-    <label>Hoe wil je meedoen?</label>
-    <select id="rol">
-      <option value="">Kies...</option>
-      <option value="gesprek">Kort gesprek (15 min)</option>
-      <option value="audio">Inspreken via WhatsApp</option>
-      <option value="volgen">Alleen volgen — houd me op de hoogte</option>
-      <option value="beta">Beta-tester worden van de app</option>
-    </select>
-
-    <button class="btn-primary" onclick="submit()">✦ Meld je aan voor ForwardJuntos</button>
-    <a id="wa-btn" href="https://wa.me/31638898163?text=Hoi%20Dominique%2C%20ik%20wil%20meedoen%20met%20ForwardJuntos.%20Mijn%20antwoord%3A%20" class="btn-wa" target="_blank">
-      💬 Direct inspreken via WhatsApp
-    </a>
-  </div>
-
-  <div class="success" id="success">
-    <div style="font-size:36px;margin-bottom:0.5rem">🌿</div>
-    <h3>Dank je — dit telt.</h3>
-    <p>Klik hieronder om je antwoord direct naar Dominique te sturen via WhatsApp — op het moment dat het jou uitkomt.<br><br></p>
-    <a id="wa-success-btn" href="https://wa.me/31638898163" class="btn-wa" target="_blank" style="max-width:320px;margin:0 auto 1rem;">
-      💬 Stuur via WhatsApp
-    </a>
-    <p style="margin-top:0.8rem"><a href="https://forwardjuntos.nl" target="_blank">→ forwardjuntos.nl</a></p>
-  </div>
-</div>
-
-<footer>
-  <strong>ForwardJuntos</strong> · Dominique Hermans<br>
-  <a href="https://forwardjuntos.nl" target="_blank">forwardjuntos.nl</a> ·
-  <a href="mailto:hello@forwardjuntos.nl">hello@forwardjuntos.nl</a><br><br>
-  Deze pagina verzamelt geen data automatisch — alleen wat jij zelf invult en deelt. Jouw gegevens worden niet opgeslagen op deze server - alleen wat jij via Whatsapp stuurt, komt bij mij terecht.
-</footer>
+</main>
 
 <script>
-  let sel = 0;
+(function(){
+  var WA = "31638898164";
+  var MAIL = "hello@forwardjuntos.nl";
+  var selectedQuestion = "";
 
-  function toggle(el, num) {
-    document.querySelectorAll('.vraag').forEach(v => {
-      v.classList.remove('selected');
-      v.querySelector('.check').textContent = '';
+  var cards = document.querySelectorAll(".qcard");
+  var selEl = document.getElementById("selectedQ");
+  var answerEl = document.getElementById("answer");
+
+  cards.forEach(function(card){
+    card.addEventListener("click", function(){
+      cards.forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+      card.setAttribute("aria-pressed","true");
+      selectedQuestion = card.getAttribute("data-q");
+      selEl.innerHTML = "Jouw vraag: <b>" + selectedQuestion + "</b>";
+      answerEl.focus({preventScroll:true});
     });
-    if (sel !== num) {
-      el.classList.add('selected');
-      el.querySelector('.check').textContent = '✓';
-      sel = num;
-      document.getElementById('antwoord').placeholder =
-        el.querySelector('.vraag-text').textContent.replace(/"/g,'') + '\n\nJouw antwoord...';
-      document.getElementById('form-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    } else {
-      sel = 0;
-    }
+  });
+
+  function val(id){ var e=document.getElementById(id); return e ? e.value.trim() : ""; }
+
+  function buildMessage(){
+    var q = selectedQuestion || "Vrije inbreng";
+    var lines = [
+      "ForwardJuntos · Ventoux-research",
+      "",
+      "Vraag: " + q,
+      "Mijn antwoord: " + (val("answer") || "—"),
+      "",
+      "Naam: " + (val("firstname") || "—"),
+      "Diagnosejaar: " + (val("year") || "—"),
+      "Bereik me via: " + (val("reach") || "—"),
+      "Zo wil ik meedoen: " + val("take")
+    ];
+    return lines.join("\n");
   }
 
-  function submit() {
-    const naam = document.getElementById('naam').value.trim();
-    const contact = document.getElementById('contact').value.trim();
-    const antwoord = document.getElementById('antwoord').value.trim();
-    const rol = document.getElementById('rol').value;
-    if (!naam || !contact) {
-      alert('Vul je naam en contactgegeven in — dan neem ik contact op.');
-      return;
-    }
-    // Update WhatsApp link met ingevulde gegevens
-    const vraagTekst = sel > 0
-      ? document.querySelectorAll('.vraag')[sel-1].querySelector('.vraag-text').textContent.replace(/"/g,'')
-      : 'ForwardJuntos community';
-    const msg = encodeURIComponent(
-      `Hoi Dominique, ik wil meedoen met ForwardJuntos.\n\nNaam: ${naam}\nContact: ${contact}\nVoorkeur: ${rol}\n\nMijn antwoord op: ${vraagTekst}\n${antwoord || '(volgt nog)'}`
-    );
-    document.getElementById('wa-btn').href = `https://wa.me/31638898163?text=${msg}`;
-    document.getElementById('form-card').style.display = 'none';
-    document.getElementById('success').style.display = 'block';
-    document.getElementById('success').scrollIntoView({ behavior: 'smooth' });
+  function needsAnswer(){
+    if(val("answer")) return false;
+    answerEl.focus();
+    answerEl.style.borderColor = "#CD6A53";
+    answerEl.setAttribute("placeholder","Schrijf hier even een paar woorden — dan kan ik er iets mee.");
+    return true;
   }
+
+  function confirmSent(){ document.getElementById("afterSend").classList.add("show"); }
+
+  document.getElementById("sendWa").addEventListener("click", function(){
+    if(needsAnswer()) return;
+    var url = "https://wa.me/" + WA + "?text=" + encodeURIComponent(buildMessage());
+    window.open(url, "_blank", "noopener");
+    confirmSent();
+  });
+
+  document.getElementById("sendMail").addEventListener("click", function(){
+    if(needsAnswer()) return;
+    var subject = "ForwardJuntos · Ventoux-research";
+    var url = "mailto:" + MAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(buildMessage());
+    window.location.href = url;
+    confirmSent();
+  });
+})();
 </script>
 </body>
 </html>
